@@ -27,7 +27,8 @@ public class Judge1005 {
                     while(left < right && nums[left] == nums[left+1]) ++left;
                     while(left < right && nums[right] == nums[right-1]) --right;
 
-                    ++left; --right;
+                    ++left;
+                    --right;
                 }
                 else if (sum < 0) ++left;
                 else --right;
