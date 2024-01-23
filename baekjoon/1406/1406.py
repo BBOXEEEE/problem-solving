@@ -3,25 +3,27 @@ import sys
 
 def main():
     S = list(sys.stdin.readline().rstrip())
+    stack = []
     M = int(sys.stdin.readline().rstrip())
-    cursor = len(S)
 
-    for i in range(M):
+    for _ in range(M):
         command = list(sys.stdin.readline().split())
+
         if command[0] == 'L':
-            if not cursor == 0:
-                cursor -= 1
+            if S:
+                stack.append(S.pop())
+
         elif command[0] == 'D':
-            if not cursor == len(S):
-                cursor += 1
+            if stack:
+                S.append(stack.pop())
+
         elif command[0] == 'B':
-            if not cursor == 0:
-                S.pop(cursor-1)
-                cursor -= 1
+            if S:
+                S.pop()
+
         else:
-            ch = command[1]
-            S.insert(cursor, ch)
-            cursor += 1
+            S.append(command[1])
+    S.extend(reversed(stack))
     print(''.join(S))
 
 
