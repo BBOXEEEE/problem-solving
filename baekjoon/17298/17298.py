@@ -1,21 +1,20 @@
 import sys
-
-
-def find(target, numbers):
-    for num in numbers:
-        if num > target:
-            return num
-    else:
-        return -1
+from collections import deque
 
 
 def main():
     N = int(sys.stdin.readline())
     numbers = list(map(int, sys.stdin.readline().split()))
-    NGE = []
 
-    for idx, target in enumerate(numbers):
-        NGE.append(find(target, numbers[idx+1:]))
+    NGE = [-1] * N
+    stack = deque()
+
+    for i in range(N):
+        while stack and stack[-1][0] < numbers[i]:
+            _, idx = stack.pop()
+            NGE[idx] = numbers[i]
+
+        stack.append([numbers[i], i])
 
     print(*NGE)
 
